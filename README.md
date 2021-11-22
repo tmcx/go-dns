@@ -11,7 +11,7 @@
 
 ## Installation
 1. Clone this repository.
-2. From your browser go to <a href="chrome://extensions/">Extensions</a>.
+2. From your browser go to Chrome Extensions(chrome://extensions/).
 3. Import the repository using ``Load unpacked`` option.
 4. Thats is all!!.
 
