@@ -11,14 +11,9 @@
 
 ## Installation
 1. Clone this repository.
-2. From your browser go to [Chrome Extensions](chrome://extensions/).
+2. From your browser go to <a href="chrome://extensions/">Extensions</a>.
 3. Import the repository using ``Load unpacked`` option.
 4. Thats is all!!.
-
-
-## Support
-
-For support, email fake@fake.com or join our Slack channel.
 
 ## License
 
