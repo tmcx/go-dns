@@ -1,0 +1,26 @@
+{
+    "name": "Go DNS",
+    "manifest_version": 3,
+    "version": "1.0",
+    "description": "Allows you to use aliases for url groups, speeding up your navigation.",
+    "permissions": [
+        "activeTab",
+        "scripting",
+        "storage",
+        "tabs"
+    ],
+    "background": {
+        "service_worker": "js/background.js"
+    },
+    "action": {
+        "default_popup": "popup.html"
+    },
+    "icons": {
+        "16": "assets/logo16.png",
+        "48": "assets/logo48.png",
+        "128": "assets/logo128.png"
+    },
+    "omnibox": {
+        "keyword": "go"
+    }
+}
