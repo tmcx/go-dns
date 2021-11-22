@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+    <div class=" header">
+        <img src="assets/logo48.png">
+    </div>
+    <div class="add">
+        <button id="add-btn">Add</button>
+        <input type="text" id="current-url">
+
+        <div class="form">
+            <div class="new">
+                <p>New</p>
+                <p class="truncate" id="current-url"></p>
+                <input type="text" id="name" placeholder="Name">
+                <input type="text" id="alias" placeholder="Alias">
+            </div>
+            <hr>
+            <span class="or-and">or / and</span>
+            <div class="existing">
+                <p>Existing</p>
+            </div>
+
+            <button class="save-changes">Save</button>
+            <button class="cancel">Cancel</button>
+        </div>
+    </div>
+    <h3>Aliases</h3>
+    <div class="dns-group-list"></div>
+</body>
+
+<script src="js/jquery-3.6.0.min.js"></script>
+<script src="js/popup.js"></script>
+<link rel="stylesheet" href="css/style.css">
+
+</html>
