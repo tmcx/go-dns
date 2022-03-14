@@ -4,8 +4,6 @@
     "version": "1.0",
     "description": "Allows you to use aliases for url groups, speeding up your navigation.",
     "permissions": [
-        "activeTab",
-        "scripting",
         "storage",
         "tabs"
     ],
