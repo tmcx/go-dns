@@ -10,6 +10,12 @@
 <hr>
 
 ## Installation
+
+#### Chrome Web Store
+1. Go to "[Go DNS](https://chrome.google.com/webstore/detail/go-dns/gfgllcofgdoicdjoecgbbdiddjmhlbpf)"
+2. Click on "Add to Chrome"
+
+#### Manual
 1. Clone this repository.
 2. From your browser go to Chrome Extensions(chrome://extensions/).
 3. Import the repository using ``Load unpacked`` option.
