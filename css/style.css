@@ -194,6 +194,16 @@ select {
     cursor: pointer;
 }
 
+.edit-alias {
+    float: right;
+    margin-right: 10px;
+    margin-top: 0px;
+    font-weight: bold;
+    font-family: cursive;
+    color: #E06029;
+    cursor: pointer;
+}
+
 .delete-url,
 .delete-group {
     float: right;
@@ -231,6 +241,29 @@ select {
     color: #0000008c;
 }
 
+.edition-menu input{
+    width: calc(50% - 66px);
+}
+
 select:disabled {
     background: #ddddddd1;
+}
+
+
+.accept-edition,
+.cancel-edition {
+    float: right;
+    margin-right: 6px;
+    margin-top: 0px;
+    font-weight: bold;
+    font-family: cursive;
+    cursor: pointer;
+}
+
+.accept-edition {
+    color: #4CC467;
+}
+
+.cancel-edition {
+    color: #cc0000;
 }

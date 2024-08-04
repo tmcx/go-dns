@@ -37,6 +37,13 @@
 4. Click the "Save" button.
 5. Thats is all!!.
 
+### Edit alias or group name
+1. Click on extension.
+2. You should do click on "✎" icon.
+3. Update the alias or group name.
+4. Click the "✔" button. If you want to cancel edition, do click on "X".
+5. Thats is all!!.
+
 ### Go to a group using the navigation bar
 1. Write ``go`` with de alias in your navigation bar.
 2. Press ``Enter`` key.

@@ -17,11 +17,14 @@ window.onload = async function () {
     $(".cancel").click(() => closeForm());
 }
 
+let editing = false;
 
 function activeActions() {
     $(".dns-group .name").click((e) => {
-        const id = e.currentTarget.id;
-        $(`.dns-group#${id}`).find(`.list, span.down, span.right`).toggle();
+        if (!editing) {
+            const id = e.currentTarget.id;
+            $(`.dns-group#${id}`).find(`.list, span.down, span.right`).toggle();
+        }
     });
 
 
@@ -36,6 +39,16 @@ function activeActions() {
         const alias = e.currentTarget.id;
         await deleteAliasGroups(alias);
         await loadGroups();
+    });
+
+    $(".edit-alias").click(async (e) => {
+        editing = true;
+        e.stopPropagation();
+        e.preventDefault();
+        const alias = e.currentTarget.id;
+        await editAlias(alias);
+        await loadGroups();
+        editing = false;
     });
 }
 
@@ -70,10 +83,19 @@ async function loadGroups() {
                 <div class="dns-group" id="${alias}">
                     <div class="name" id="${alias}">
                         <span class="alias">[${alias}]</span>
-                        ${group.name}
+                        <span class="group-name">${group.name}</span>
+                        <span class="edition-menu" style="display:none">
+                            Alias: 
+                            <input type="text" value="${alias}" pattern="\S(.*\S)?" required placeholder="${alias}" title="This field is required">
+                            Name: 
+                            <input type="text" value="${group.name}" pattern="\\S(.*\\S)?" required placeholder="${group.name}" title="This field is required">
+                            <span class="cancel-edition" title="Cancel" id="${alias}">X</span>
+                            <span class="accept-edition" title="Accept" id="${alias}">✔</span>
+                        </span>
                         <span class="down"></span>
                         <span class="right"></span>
-                        <span class="delete-group" id="${alias}">X</span>
+                        <span class="delete-group" title="Delete group" id="${alias}">X</span>
+                        <span class="edit-alias" title="Edit group" id="${alias}">✎</span>
                     </div>
                     <div class="list">${htmlUrls}</div>
                 </div>
@@ -160,4 +182,61 @@ async function deleteAliasGroups(alias) {
         delete groups[alias];
     }
     await setAliasesGroups(groups);
+}
+
+async function editAlias(alias) {
+    return new Promise((res) => {
+        const baseLocation = `.dns-group#${alias} .name`;
+        const baseElement = document.querySelector(baseLocation);
+
+        baseElement.querySelectorAll('.alias,.group-name')
+            .forEach((e) => e.textContent = '');
+
+        baseElement.querySelectorAll('.edit-alias,.down,.right,.delete-group')
+            .forEach((e) => e.style.display = 'none');
+
+        baseElement.querySelector('.cancel-edition').addEventListener('click', res);
+
+        baseElement.querySelector('.edition-menu').style.display = 'inline';
+        const acceptElement = baseElement.querySelector('.accept-edition');
+
+        const newAliasElement = baseElement.querySelector('input[type="text"][value]');
+        const newNameElement = baseElement.querySelector('input[type="text"][value] + input[type="text"][value]');
+
+        const disableButton = async () => {
+            var groups = await getAliasesGroups();
+            acceptElement.disabled = !newAliasElement.value || !newNameElement.value || groups[newAliasElement.value] && newAliasElement.value != alias;
+            acceptElement.style.cursor = acceptElement.disabled ? 'not-allowed' : 'pointer';
+            acceptElement.style.opacity = acceptElement.disabled ? '0.5' : '1';
+            acceptElement.setAttribute('title', acceptElement.disabled ? 'Both fields are required' : 'Accept');
+            if (groups[newAliasElement.value] && newAliasElement.value != alias) {
+                acceptElement.setAttribute('title', acceptElement.disabled ? 'Alias already exists' : '');
+            }
+        }
+
+        disableButton();
+        [newAliasElement, newNameElement].forEach(e => e.addEventListener('keyup', disableButton));
+
+
+        acceptElement.addEventListener('click', async (e) => {
+            const newAlias = newAliasElement.value;
+            const newName = newNameElement.value;
+
+            var groups = await getAliasesGroups();
+
+            if (groups[newAlias] && newAlias != alias) {
+                return;
+            }
+            if (!!newAlias && !!newName) {
+                groups[newAlias] = {
+                    name: newName,
+                    urls: JSON.parse(JSON.stringify(groups[alias].urls))
+                };
+                delete groups[alias];
+                await setAliasesGroups(groups);
+                console.log(groups);
+                res();
+            }
+        })
+    });
 }
